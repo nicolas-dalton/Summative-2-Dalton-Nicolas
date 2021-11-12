@@ -204,4 +204,72 @@ public class BookJdbcTemplateDaoImplTest {
         assertEquals(book1, book);
     }
 
+    @Test
+    public void getBooksByAlbum() {
+        //ARRANGE
+        Author author = new Author();
+        author.setFirstName("Bob");
+        author.setLastName("Smith");
+        author.setStreet("6th st.");
+        author.setCity("Austin");
+        author.setState("TX");
+        author.setPostalCode("78701");
+        author.setPhone("512-710-5567");
+        author.setEmail("bobsmith23@gmail.com");
+
+        author = authorDao.addAuthor(author);
+
+        Author author1 = new Author();
+        author1.setFirstName("Jim");
+        author1.setLastName("Johnson");
+        author1.setStreet("S. Congress Ave");
+        author1.setCity("Austin");
+        author1.setState("TX");
+        author1.setPostalCode("78704");
+        author1.setPhone("512-140-9230");
+        author1.setEmail("jimmy20@gmail.com");
+
+        author1 = authorDao.addAuthor(author1);
+
+        Publisher publisher = new Publisher();
+        publisher.setName("Graywolf Press");
+        publisher.setStreet("250 Third Avenue North");
+        publisher.setCity("Minneapolis");
+        publisher.setState("MN");
+        publisher.setPostalCode("55401");
+        publisher.setPhone("651-641-0077");
+        publisher.setEmail("wolves@graywolfpress.org ");
+
+        publisher = publisherDao.addPublisher(publisher);
+
+        Book book = new Book();
+        book.setIsbn("97831614841");
+        book.setPublishDate(LocalDate.of(2010, 1, 5));
+        book.setAuthorId(author.getAuthorId());
+        book.setTitle("My Life Story");
+        book.setPublisherId(publisher.getPublisherId());
+        book.setPrice(new BigDecimal("47.10"));
+
+        book = bookDao.addBook(book);
+
+        book.setIsbn("83026802");
+        book.setPublishDate(LocalDate.of(2011, 2, 9));
+        book.setAuthorId(author.getAuthorId());
+        book.setTitle("A true book");
+        book.setPublisherId(publisher.getPublisherId());
+        book.setPrice(new BigDecimal("53.99"));
+        book = bookDao.addBook(book);
+
+        book.setIsbn("8993331");
+        book.setPublishDate(LocalDate.of(2019, 11, 20));
+        book.setAuthorId(author1.getAuthorId());
+        book.setTitle("A true book part 2");
+        book.setPublisherId(publisher.getPublisherId());
+        book.setPrice(new BigDecimal("70.99"));
+        book = bookDao.addBook(book);
+
+        List<Book> bookList = bookDao.getBooksByAuthor(author.getAuthorId());
+        assertEquals(2, bookList.size());
+    }
+
 }

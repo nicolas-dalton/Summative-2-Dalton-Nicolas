@@ -29,6 +29,8 @@ public class BookJdbcTemplateDaoImpl implements BookDao {
     private static final String UPDATE_BOOK_SQL =
             "update book set isbn = ?, publish_date = ?, author_id = ?, title = ?, publisher_id = ?, price = ? where book_id = ?";
 
+    private static final String SELECT_BOOK_BY_AUTHOR_SQL =
+            "select * from book where author_id = ?";
     // instance variable
     private JdbcTemplate jdbcTemplate;
 
@@ -93,6 +95,14 @@ public class BookJdbcTemplateDaoImpl implements BookDao {
     @Override
     public void deleteBook(int bookId) {
         jdbcTemplate.update(DELETE_BOOK_SQL, bookId);
+    }
+
+    @Override
+    public List<Book> getBooksByAuthor(int authorId) {
+       return jdbcTemplate.query(
+               SELECT_BOOK_BY_AUTHOR_SQL,
+               this::mapRowToBook,
+               authorId);
     }
 
     private Book mapRowToBook(ResultSet rs, int rowNum) throws SQLException {

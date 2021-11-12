@@ -1,5 +1,6 @@
 package com.company.Summative2DaltonNicolas.dao;
 
+
 import com.company.Summative2DaltonNicolas.models.Book;
 
 import java.util.List;
@@ -16,4 +17,5 @@ public interface BookDao {
 
     void deleteBook(int bookId);
 
+    List<Book> getBooksByAuthor(int authorId);
 }
