@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class AuthorJdbcTemplateDaoImpl implements AuthorDao {
 
-    // CONSTANTS
+    // CONSTANTS: SQL QUERIES
     private static final String INSERT_AUTHOR_SQL =
             "insert into author (first_name, last_name, street, city, state, postal_code, phone, email) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
